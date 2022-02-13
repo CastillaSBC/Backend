@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "outDir": "dist",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@controllers/*": ["Controllers/*"],
+      "@services/*": ["Services/*"],
+      "~~/*": ["./*"],
+      "@@/*": ["./*"]
+    }
+  },
+}
