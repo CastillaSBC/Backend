@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { encode } from "jwt-simple"
 import prisma from "../../Prisma/prismaFile";
-import Logger from "../../Utilities/Log"
 import { verify } from "argon2"
 
 export async function authenticate(req: Request, res: Response) {
@@ -13,7 +12,7 @@ export async function authenticate(req: Request, res: Response) {
             .status(400)
             .json({
                 success: false,
-                error: "Invalid username or password",
+                error: "No username or password found.",
             });
     }
 

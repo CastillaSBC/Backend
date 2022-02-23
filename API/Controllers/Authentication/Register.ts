@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import { decode } from "jwt-simple"
 import prisma from "../../Prisma/prismaFile";
 import Logger from "../../Utilities/Log"
 import { Prisma } from "@prisma/client"
@@ -40,7 +39,7 @@ export async function register(req: Request, res: Response) {
     }
 
     const user: Prisma.UserCreateInput = {
-        username,
+        username: username,
         password: await hash(password),
         image: "",
         description: "New to your mom",

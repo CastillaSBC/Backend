@@ -1,7 +1,8 @@
-import express, { Express, Router } from "express";
+import express, { Express } from "express";
 import { config } from "dotenv";
 import Logger from "./../Utilities/Log";
 import helmet from "helmet";
+import cors from "cors";
 config();
 
 class Server {
@@ -10,20 +11,22 @@ class Server {
   constructor() {
     this.app = express();
     this.app.use(helmet());
+    this.app.use(cors({
+      origin: "*",
+      credentials: true,
+      optionSuccessStatus: 200
+    }))
     this.app.use(express.urlencoded({extended: true}))
     this.app.use(express.json())
   }
 
   public async registerRoutes() {
     Logger.log(`Logging routes to memory...`);
+
     this.app.use("/static/", express.static("static"));
-    this.app.use(
-      "/authentication",
-      (await import("./../Routes/Authentication")).default
-    );
-    this.app.get("/", (req, res) => {
-      res.send({Nig: true})
-    } );
+    
+    this.app.use("/authentication", (await import("./../Routes/Authentication")).default);
+    this.app.use("/service", (await import("./../Routes/Service")).default);
 
     Logger.log(`Routes logged.`);
 
