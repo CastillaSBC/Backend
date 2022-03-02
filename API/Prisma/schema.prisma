@@ -62,9 +62,9 @@ model Threads {
   pinned       Boolean     @default(false)
   adminThread  Boolean     @default(false)
   glowing      Boolean     @default(false) // Let the glow go on!
-  glowingSince Int
+  glowingSince Int?
   createdAt    DateTime?   @db.Date
-  repliedAt    Int
+  repliedAt    DateTime?   @db.Date          
   category     Category    @relation(fields: [categoryID], references: [id])
   categoryID   Int
   creator      User        @relation(fields: [creatorID], references: [id])

@@ -1,7 +1,6 @@
 {
   "name": "nuxt-express-jwt-auth",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "dev": "ts-node ./API/Classes/Server.ts"
   },

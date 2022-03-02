@@ -11,7 +11,5 @@ export async function me(req: Request, res: Response) {
 
     const user = await prisma.user.findUnique({ where: { id: sub } })
 
-    return res
-        .status(200)
-        .json(user)
+    return res.status(200).json({ success: true, user })
 }
