@@ -7,14 +7,13 @@ config();
 
 class Server {
   public app: Express;
-  public port: number = parseInt(process.env.PORT, 10);
+  public port: number = parseInt(process.env.PORT!, 10);
   constructor() {
     this.app = express();
     this.app.use(helmet());
     this.app.use(cors({
       origin: "*",
       credentials: true,
-      optionSuccessStatus: 200
     }))
     this.app.use(express.urlencoded({extended: true}))
     this.app.use(express.json())
@@ -24,7 +23,7 @@ class Server {
     Logger.log(`Logging routes to memory...`);
 
     this.app.use("/static/", express.static("static"));
-    
+
     this.app.use("/authentication", (await import("./../Routes/Authentication")).default);
     this.app.use("/service", (await import("./../Routes/Service")).default);
 

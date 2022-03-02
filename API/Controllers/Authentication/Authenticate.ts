@@ -20,7 +20,7 @@ export async function authenticate(req: Request, res: Response) {
     if (passwordCorrect === false) return res.status(403).json({ success: false, error: "Incorrect password" });
 
 
-    const JWT = encode({ sub: user.id, exp: Date.now() + 2592000 }, process.env.JWT_SECRET);
+    const JWT = encode({ sub: user.id, exp: Date.now() + 2592000 }, process.env.JWT_SECRET!);
 
     res.status(200).json({ success: true, message: `User ${user.username} logged in.`, token: JWT })
 }

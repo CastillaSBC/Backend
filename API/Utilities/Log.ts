@@ -1,6 +1,7 @@
 import { createWriteStream, mkdirSync, WriteStream, existsSync } from "fs";
 import { join } from "path";
 import { config } from "dotenv";
+import { Prisma } from "@prisma/client";
 config();
 /**
  * ***Logger***
@@ -43,7 +44,7 @@ class Logger {
       this.systemLog.write(`[${this.prefix}] - ${Date.now()} - ${log}\r\n`);
     }
   }
-  public error(error, service: string) {
+  public error(error: Prisma.LogEvent, service: string) {
     process.env.LOGS === "true"
       ? this.systemLog.write(
           `[${
@@ -53,7 +54,7 @@ class Logger {
       : false;
   }
 
-  public warn(log: any, service) {
+  public warn(log: any, service: string) {
     process.env.LOGS === "true"
       ? this.systemLog.write(
           `[${

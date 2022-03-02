@@ -17,7 +17,6 @@ export async function create(req: Request, res: Response) {
 
 
     const thread = await prisma.threads.create({
-        //@ts-expect-error
         data: {
             //@ts-expect-error
             creatorID: req.userId,
@@ -27,9 +26,9 @@ export async function create(req: Request, res: Response) {
             glowingSince: Date.now()
         }
     })
-    
+
     if (!thread) return res.status(500).json({ success: false, error: "There was an internal error creating your thread.!" })
-    
+
     return res.status(200).json({ success: true, message: "Thread succesfully created.", thread: thread.id })
 
 

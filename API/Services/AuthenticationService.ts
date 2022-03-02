@@ -12,7 +12,7 @@ export default class AuthenticationService {
     let bearerToken: { exp: number; sub: number; };
 
     try {
-      bearerToken = decode(req.headers.authorization.split(" ")[1], process.env.JWT_SECRET);
+      bearerToken = decode(req.headers.authorization.split(" ")[1], process.env.JWT_SECRET!);
     } catch (e) {
       return res.status(401).json({ success: false, error: "Invalid Token" })
     };
@@ -22,7 +22,7 @@ export default class AuthenticationService {
     const user = await database.user.findUnique({ where: { id: bearerToken.sub } });
 
     if (!user) return res.status(404).json({ success: false, error: "Could not find user" });
-
+    // @ts-ignore
     req.user = user;
     next();
   }
