@@ -29,7 +29,7 @@ export async function create(req: Request, res: Response) {
 
     if (!thread) return res.status(500).json({ success: false, error: "There was an internal error creating your thread.!" })
 
-    return res.status(200).json({ success: true, message: "Thread succesfully created.", thread: thread.id })
+    return res.status(200).json({ success: true, message: "Thread successfully created.", thread: thread.id })
 
 
 }
