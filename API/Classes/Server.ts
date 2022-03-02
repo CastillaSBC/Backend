@@ -25,6 +25,7 @@ class Server {
     this.app.use("/static/", express.static("static"));
 
     this.app.use("/authentication", (await import("./../Routes/Authentication")).default);
+    this.app.use("/forums", (await import("./../Routes/Forums")).default);
     this.app.use("/service", (await import("./../Routes/Service")).default);
 
     Logger.log(`Routes logged.`);
