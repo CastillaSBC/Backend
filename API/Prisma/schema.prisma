@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = "mysql://root:mother@localhost:3306/sex"
+  provider = "sqlite"
+  url      = "file:sqlite.db"
 }
 
 model User {
@@ -23,7 +23,7 @@ model User {
   threads       Threads[]
   responses     Responses[]
   tokenLottery  TokenLottery?
-
+  createdAt     Int
 }
 
 model Badges {
@@ -63,8 +63,8 @@ model Threads {
   adminThread  Boolean     @default(false)
   glowing      Boolean     @default(false) // Let the glow go on!
   glowingSince Int?
-  createdAt    DateTime?   @db.Date
-  repliedAt    DateTime?   @db.Date          
+  createdAt    Int
+  repliedAt    Int
   category     Category    @relation(fields: [categoryID], references: [id])
   categoryID   Int
   creator      User        @relation(fields: [creatorID], references: [id])
@@ -73,14 +73,14 @@ model Threads {
 }
 
 model Responses {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   body      String
-  thread    Threads  @relation(fields: [threadID], references: [id])
+  thread    Threads @relation(fields: [threadID], references: [id])
   threadID  Int
-  creator   User     @relation(fields: [creatorID], references: [id])
+  creator   User    @relation(fields: [creatorID], references: [id])
   creatorID Int
   quote     Quotes?
-  createdAt DateTime @db.Date
+  createdAt Int
 }
 
 model Quotes {

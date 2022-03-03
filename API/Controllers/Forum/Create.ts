@@ -22,7 +22,9 @@ export async function create(req: Request, res: Response) {
             title: title,
             body: body,
             categoryID: parseInt(req.params.id),
-            glowingSince: Date.now()
+            glowingSince: Date.now(),
+            createdAt: Date.now(),
+            repliedAt: Date.now()
         }
     })
 
