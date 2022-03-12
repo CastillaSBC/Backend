@@ -24,11 +24,11 @@ export async function register(req: Request, res: Response): Promise<Response<an
 
     if (foundUser) return res.status(400).json({ success: false, error: "Username taken." })
 
-
     const user: Prisma.UserCreateInput = {
         username: username,
         password: await hash(password),
         description: "New to your mom",
+        createdAt: Date.now()
     };
 
     await prisma.user.create({ data: user });

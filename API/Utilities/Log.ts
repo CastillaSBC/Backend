@@ -41,7 +41,7 @@ class Logger {
   public log(log: any) {
     if (process.env.LOGS === "true") {
       console.log(`[${this.prefix}] - ${Date.now()} - ${log}\r\n`);
-      this.systemLog.write(`[${this.prefix}] - ${Date.now()} - ${log}\r\n`);
+      this.systemLog.write(`[${this.prefix}] - ${Date.now()} - ${JSON.stringify({message: log})}\r\n`);
     }
   }
   public error(error: Prisma.LogEvent, service: string) {
