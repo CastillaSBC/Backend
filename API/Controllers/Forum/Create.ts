@@ -17,7 +17,7 @@ export async function create(req: Request, res: Response) {
 
     const thread = await prisma.threads.create({
         data: {
-            //@ts-ignore
+            //@ts-expect-error
             creatorID: req.user.userId,
             title: title,
             body: body,
