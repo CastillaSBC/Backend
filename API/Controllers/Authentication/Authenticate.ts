@@ -11,7 +11,7 @@ export async function authenticate(req: Request, res: Response) {
 
     let user = await prisma.user.findUnique({ where: { username: username } });
 
-    if (!user) return res.status(404).json({ success: false, error: "User not found" });
+	if (!user) return res.status(404).json({ success: false, error: "User not found" });
 
     const passwordCorrect = await verify(user.password, password)
 
@@ -19,5 +19,14 @@ export async function authenticate(req: Request, res: Response) {
 
     const JWT = encode({ sub: user.id, exp: Date.now() + 2592000 }, process.env.JWT_SECRET!); // 2592000 = 30 Days
 
-    res.status(200).json({ success: true, message: `User ${user.username} logged in.`, token: JWT })
+	await prisma.user.update({
+		where: {
+			id: user.id,
+		},
+		data: {
+
+		}
+	})
+
+    return res.status(200).json({ success: true, message: `User ${user.username} logged in.`, token: JWT })
 }
