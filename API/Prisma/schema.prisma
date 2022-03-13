@@ -2,89 +2,95 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:sqlite.db"
+    provider = "sqlite"
+    url      = "file:sqlite.db"
 }
 
 model User {
-  id            Int           @id @default(autoincrement())
-  username      String        @unique
-  password      String
-  email         String?
-  verifiedEmail Boolean       @default(false)
-  badges        Badges[]
-  avatar        String        @default("default")
-  description   String        @default("Hello! I am new!")
-  feed          String        @default("Hi there!")
-  threads       Threads[]
-  responses     Responses[]
-  tokenLottery  TokenLottery?
-  createdAt     Int
+    id              Int           @id @default(autoincrement())
+    username        String        @unique
+    password        String
+    email           String?
+    verifiedEmail   Boolean       @default(false)
+    badges          Badges[]
+    avatar          String        @default("default")
+    description     String        @default("Hello! I am new!")
+    feed            String        @default("Hi there!")
+    threads         Threads[]
+    responses       Responses[]
+    tokenLottery    TokenLottery?
+    createdAt       Int
+    loggedAt        Int
+    lastReward      Int
+    azuCoins        Int
+    permissionLevel Int
+    ip              String // Good reason for it to be logged.
+
 }
 
 model Badges {
-  id           Int    @id @default(autoincrement())
-  badgeName    String
-  badgeContent String
-  user         User   @relation(fields: [userID], references: [id])
-  userID       Int
+    id           Int    @id @default(autoincrement())
+    badgeName    String
+    badgeContent String
+    user         User   @relation(fields: [userID], references: [id])
+    userID       Int
 }
 
 model Category {
-  id                  Int       @id @default(autoincrement())
-  categoryName        String
-  categoryDescription String
-  adminRestricted     Boolean   @default(false)
-  threads             Threads[]
+    id                  Int       @id @default(autoincrement())
+    categoryName        String
+    categoryDescription String
+    adminRestricted     Boolean   @default(false)
+    threads             Threads[]
 }
 
 model TokenLottery {
-  id             Int      @id @default(autoincrement())
-  prizeOne       Int
-  prizeOneWinner User     @relation(fields: [userID], references: [id])
-  userID         Int      @unique
-  prizeOneWin    DateTime
-  prizeTwo       Int
-  prizeTwoWin    DateTime
-  prizeThree     Int
-  prizeThreeWin  DateTime
+    id             Int      @id @default(autoincrement())
+    prizeOne       Int
+    prizeOneWinner User     @relation(fields: [userID], references: [id])
+    userID         Int      @unique
+    prizeOneWin    DateTime
+    prizeTwo       Int
+    prizeTwoWin    DateTime
+    prizeThree     Int
+    prizeThreeWin  DateTime
 }
 
 model Threads {
-  id           Int         @id @default(autoincrement())
-  title        String
-  body         String
-  locked       Boolean     @default(false)
-  pinned       Boolean     @default(false)
-  adminThread  Boolean     @default(false)
-  glowing      Boolean     @default(false) // Let the glow go on!
-  glowingSince Int?
-  createdAt    Int
-  repliedAt    Int
-  category     Category    @relation(fields: [categoryID], references: [id])
-  categoryID   Int
-  creator      User        @relation(fields: [creatorID], references: [id])
-  creatorID    Int
-  responses    Responses[]
+    id           Int         @id @default(autoincrement())
+    title        String
+    body         String
+    locked       Boolean     @default(false)
+    pinned       Boolean     @default(false)
+    adminThread  Boolean     @default(false)
+    glowing      Boolean     @default(false) // Let the glow go on!
+    glowingSince Int?
+    createdAt    Int
+    repliedAt    Int
+    category     Category    @relation(fields: [categoryID], references: [id])
+    categoryID   Int
+    creator      User        @relation(fields: [creatorID], references: [id])
+    creatorID    Int
+    responses    Responses[]
 }
 
 model Responses {
-  id        Int     @id @default(autoincrement())
-  body      String
-  thread    Threads @relation(fields: [threadID], references: [id])
-  threadID  Int
-  creator   User    @relation(fields: [creatorID], references: [id])
-  creatorID Int
-  quote     Quotes?
-  createdAt Int
+    id        Int     @id @default(autoincrement())
+    body      String
+    thread    Threads @relation(fields: [threadID], references: [id])
+    threadID  Int
+    creator   User    @relation(fields: [creatorID], references: [id])
+    creatorID Int
+    quote     Quotes?
+    createdAt Int
 }
 
 model Quotes {
-  id         Int       @id @default(autoincrement())
-  response   Responses @relation(fields: [responseID], references: [id])
-  responseID Int       @unique
+    id         Int       @id @default(autoincrement())
+    response   Responses @relation(fields: [responseID], references: [id])
+    responseID Int       @unique
 }
