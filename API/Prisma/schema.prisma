@@ -23,12 +23,12 @@ model User {
     threads         Threads[]
     responses       Responses[]
     tokenLottery    TokenLottery?
-    createdAt       Int
-    loggedAt        Int
-    lastReward      Int
-    azuCoins        Int
-    permissionLevel Int
-    ip              String // Good reason for it to be logged.
+    createdAt       Int           @default(0)
+    loggedAt        Int           @default(0)
+    lastReward      Int           @default(0)
+    azuCoins        Int           @default(0)
+    permissionLevel Int           @default(1)
+    ip              String? // Good reason for it to be logged.
 
 }
 
