@@ -91,5 +91,4 @@ sw.*
 *.swp
 
 # SQLITE
-sqlite.db
-
+*.sqlite

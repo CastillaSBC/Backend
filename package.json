@@ -2,7 +2,10 @@
   "name": "nuxt-express-jwt-auth",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node ./API/Classes/Server.ts"
+    "dev": "ts-node ./API/Classes/Server.ts",
+	"db-push" : "pnpm prisma db push --schema ./API/Prisma/schema.prisma",
+	"db-editor" : "pnpm prisma studio --schema ./API/Prisma/schema.prisma",
+	"db-migrate": "pnpm prisma migrate dev --schema ./API/Prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^3.9.1",

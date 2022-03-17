@@ -29,7 +29,6 @@ model User {
     azuCoins        Int           @default(0)
     permissionLevel Int           @default(1)
     ip              String? // Good reason for it to be logged.
-
 }
 
 model Badges {
