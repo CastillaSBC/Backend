@@ -6,6 +6,9 @@ import { verify } from "argon2"
 export async function authenticate(req: Request, res: Response) {
     const username: string = req.body["username"];
     const password: string = req.body["password"];
+	const ip: string | string[] | undefined = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+
+	if(!ip) return res.status(500).json({success: false, error: "Something went wrong."})
 
     if (!username || !password) return res.status(400).json({ success: false, error: "No username or password found." });
 
@@ -17,7 +20,7 @@ export async function authenticate(req: Request, res: Response) {
 
     if (passwordCorrect === false) return res.status(403).json({ success: false, error: "Incorrect password" });
 
-    const JWT = encode({ sub: user.id, exp: Date.now() + 2592000 }, process.env.JWT_SECRET!); // 2592000 = 30 Days
+    const JWT = encode({ sub: user.id, exp: Date.now() + 2592000, ip: ip }, process.env.JWT_SECRET!); // 2592000 = 30 Days
 
 	await prisma.user.update({
 		where: {
